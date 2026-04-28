@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Графік — Квітень 2026 | beeжу</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f5f0;
+    --white: #ffffff;
+    --surface2: #f0efe9;
+    --border: #e5e4dd;
+    --accent: #FF6B1A;
+    --accent-light: rgba(255,107,26,0.08);
+    --accent-mid: rgba(255,107,26,0.18);
+    --green: #2db37c;
+    --green-light: rgba(45,179,124,0.1);
+    --yellow-light: rgba(245,166,35,0.1);
+    --purple-light: rgba(124,92,252,0.1);
+    --text: #1a1a18;
+    --text2: #4a4a45;
+    --muted: #9a9990;
+    --card-radius: 16px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; min-height: 100vh; }
+
+  header {
+    background: var(--white);
+    border-bottom: 2px solid var(--border);
+    padding: 16px 24px 0;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+  }
+  .header-top {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px; padding-bottom: 14px;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 900; font-size: 18px; letter-spacing: -0.5px;
+    color: var(--text); text-decoration: none;
+  }
+  .logo-bee {
+    width: 34px; height: 34px; background: var(--accent);
+    border-radius: 8px; display: flex; align-items: center;
+    justify-content: center; font-size: 18px; flex-shrink: 0;
+  }
+  .logo-text span { color: var(--accent); }
+  .header-meta { font-size: 12px; font-weight: 600; color: var(--muted); letter-spacing: 0.5px; text-transform: uppercase; }
+
+  .search-wrap { position: relative; flex: 1; max-width: 300px; }
+  .search-wrap input {
+    width: 100%; background: var(--surface2); border: 2px solid var(--border);
+    border-radius: 12px; padding: 9px 14px 9px 38px;
+    color: var(--text); font-family: 'Montserrat', sans-serif;
+    font-size: 13px; font-weight: 500; outline: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .search-wrap input::placeholder { color: var(--muted); }
+  .search-wrap input:focus { border-color: var(--accent); background: var(--white); }
+  .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 15px; pointer-events: none; }
+
+  .days-nav {
+    display: flex; gap: 0; overflow-x: auto;
+    scrollbar-width: none; margin: 0 -24px; padding: 0 24px;
+  }
+  .days-nav::-webkit-scrollbar { display: none; }
+  .day-pill {
+    flex-shrink: 0; padding: 10px 14px 12px;
+    font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700;
+    cursor: pointer; border: none; background: transparent; color: var(--muted);
+    transition: all 0.18s; white-space: nowrap;
+    border-bottom: 3px solid transparent; position: relative; top: 2px; letter-spacing: 0.2px;
+  }
+  .day-pill:hover { color: var(--text); }
+  .day-pill.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .day-pill.today { color: var(--green); }
+  .day-pill.today.active { color: var(--green); border-bottom-color: var(--green); }
+
+  main { padding: 28px 20px 80px; max-width: 860px; margin: 0 auto; }
+  .day-block { display: none; }
+  .day-block.visible { display: block; animation: fadeIn 0.2s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .day-header {
+    display: flex; align-items: baseline; gap: 10px;
+    margin-bottom: 20px; padding-bottom: 16px; border-bottom: 2px solid var(--border);
+  }
+  .day-date { font-size: 32px; font-weight: 900; line-height: 1; letter-spacing: -1px; }
+  .day-weekday { font-size: 14px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+  .jobs-count {
+    margin-left: auto; font-size: 11px; font-weight: 700;
+    background: var(--accent-light); border: 1.5px solid var(--accent-mid);
+    padding: 4px 12px; border-radius: 20px; color: var(--accent);
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .today-badge {
+    display: inline-block; background: var(--green); color: white;
+    font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 10px;
+    letter-spacing: 0.5px; text-transform: uppercase; margin-left: 8px;
+    vertical-align: middle; position: relative; top: -2px;
+  }
+
+  .job-card {
+    background: var(--white); border: 1.5px solid var(--border);
+    border-radius: var(--card-radius); padding: 16px 18px;
+    margin-bottom: 10px; transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+    position: relative; overflow: hidden;
+  }
+  .job-card::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+    background: var(--accent); border-radius: 4px 0 0 4px;
+  }
+  .job-card:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.1); border-color: rgba(255,107,26,0.25); }
+
+  .job-top { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 8px; }
+  .job-time {
+    background: var(--accent-light); border: 1.5px solid var(--accent-mid);
+    border-radius: 8px; padding: 5px 10px; font-size: 12px; font-weight: 800;
+    color: var(--accent); white-space: nowrap; min-width: 72px; text-align: center;
+    flex-shrink: 0; letter-spacing: 0.3px;
+  }
+  .job-time.no-time { color: var(--muted); background: var(--surface2); border-color: var(--border); }
+  .job-address { font-weight: 800; font-size: 15px; line-height: 1.3; flex: 1; color: var(--text); }
+  .job-type { font-size: 12.5px; color: var(--text2); margin-bottom: 10px; line-height: 1.5; font-weight: 500; padding-left: 84px; }
+  .job-meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; padding-left: 84px; }
+
+  .meta-chip { display: inline-flex; align-items: center; gap: 4px; font-size: 11.5px; padding: 4px 10px; border-radius: 20px; font-weight: 600; }
+  .chip-driver { background: rgba(255,107,26,0.08); color: #d45510; border: 1.5px solid rgba(255,107,26,0.2); }
+  .chip-cleaners { background: var(--green-light); color: #1e9163; border: 1.5px solid rgba(45,179,124,0.2); }
+  .chip-manager { background: var(--purple-light); color: #5e3fd4; border: 1.5px solid rgba(124,92,252,0.2); }
+  .chip-note { background: var(--yellow-light); color: #b87810; border: 1.5px solid rgba(245,166,35,0.2); }
+
+  .empty-state { text-align: center; padding: 60px 20px; color: var(--muted); }
+  .empty-state .icon { font-size: 48px; margin-bottom: 12px; }
+  .empty-state p { font-weight: 600; font-size: 14px; }
+  .search-results { display: none; }
+  .search-results.visible { display: block; }
+  .search-header { font-weight: 800; font-size: 15px; margin-bottom: 20px; color: var(--text2); }
+  .search-header span { color: var(--accent); }
+
+  @media (max-width: 600px) {
+    .day-date { font-size: 24px; }
+    .header-meta { display: none; }
+    .job-top { flex-direction: column; gap: 6px; }
+    .job-time { min-width: unset; align-self: flex-start; }
+    .job-type, .job-meta { padding-left: 0; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="header-top">
+    <a class="logo" href="https://www.beezhu.com" target="_blank">
+      <div class="logo-bee">🐝</div>
+      <div class="logo-text">bee<span>жу</span></div>
+    </a>
+    <div class="header-meta">Графік · Квітень 2026</div>
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Пошук: клінер, адреса..." oninput="doSearch(this.value)">
+    </div>
+  </div>
+  <div class="days-nav" id="daysNav"></div>
+</header>
+
+<main>
+  <div id="normalView"></div>
+  <div class="search-results" id="searchResults">
+    <div class="search-header" id="searchHeader"></div>
+    <div id="searchContent"></div>
+  </div>
+</main>
+
+<script>
+const SCHEDULE = [{"date":"01.04.2026","weekday":"Середа","jobs":[{"time":"07:00-21:00","driver":"самостійно","manager":"","address":"Мельника 18","type":"прибирання івенту","cleaners":"Білоган К, Микитюк Л","notes":""},{"time":"09:00:00","driver":"Роман","manager":"","address":"Шевченка 60/3, під 1","type":"деталізоване прибирання (до 45 м.кв) +духовка","cleaners":"Томашевська Л, Задорожня І, ст.Золотаренко В (4-й)","notes":""},{"time":"09:30-16:00","driver":"Роман","manager":"","address":"Околична 10","type":"генеральне прибирання (до 60 м.кв) + хч 5-місного кутового дивану","cleaners":"Степована Н, Міґоцька І, Лапін В","notes":""},{"time":"10:00:00","driver":"Роман","manager":"","address":"Малицької 14","type":"сезонне миття вікон (18,92 м.кв) + грати","cleaners":"Коцун О, ст. Тетенюк Р (4-ий.д)","notes":""},{"time":"10:00:00","driver":"Дмитро / Зачкевич Х","manager":"","address":"Рясне Руське","type":"доробка","cleaners":"Копровська Я, Сабадаш Г, Янішевська Г, ст. Хрупіна О (3-й.д)","notes":"Збір о 09:30 вул. Шведська 3 (склад)"},{"time":"10:30:00","driver":"Роман","manager":"","address":"Рудно, Шухевича 18","type":"Диван 4-місний + Крісло зелене (2 шт) + Пуф зелений + Крісла кухонні (6 шт) + Крісло жовте + Подушки","cleaners":"Логін В","notes":"Збір о 10:00 вул. Малицької 14"},{"time":"11:15:00","driver":"Роман","manager":"","address":"Ярославенка 17а","type":"генеральне 100 м.кв + посудомийка + радіатори (3шт)","cleaners":"Стельмах Ю, Чучман Т","notes":""},{"time":"14:00+-","driver":"Роман","manager":"","address":"Рясне Руське вул. Світла 4","type":"хімчстка 4-місни диван + 8 крісел","cleaners":"Лапін В","notes":""}]},{"date":"02.04.2026","weekday":"Четвер","jobs":[{"time":"09:00:00","driver":"Роман","manager":"","address":"Пасічна 154 б","type":"генеральне прибирання (до 90 м.кв) + вікна (+- 12 м.кв)","cleaners":"Мартинюк Н, Томашевська Л, Коцун О, ст. Тетенюк Р (5-ий.д)","notes":"Коцун і Тетенюк +- о 14:00"},{"time":"09:30:00","driver":"Роман","manager":"","address":"Бойківська 1","type":"генеральне прибирання (до 90 м.кв)","cleaners":"Сабадаш Г, Стельмах Ю, Кушніренко О","notes":""},{"time":"09:30:00","driver":"Зачкевич Х","manager":"","address":"Мучна 56","type":"підтримуюче прибирання + миття вікон","cleaners":"Логін В, Лопачак А","notes":""},{"time":"09:30:00","driver":"таксі","manager":"","address":"Чорновола 73","type":"сезонне миття вікон (+-15 м.кв)","cleaners":"Коцун О, ст. Тетенюк Р (5-ий.д)","notes":""},{"time":"09:50:00","driver":"Роман","manager":"","address":"Кн. Ольги 100 ж, ЖК Добра Оселя","type":"деталізоване 60 м.кв","cleaners":"Гуменна Х, Міґоцька І, Копровська Я","notes":""},{"time":"10:15:00","driver":"Роман","manager":"","address":"Кульпарківська 93","type":"підтримуюче (до 75 м.кв)","cleaners":"Чучман Н","notes":""},{"time":"10:45:00","driver":"Роман","manager":"","address":"Липинського 6","type":"генеральне прибирання кухні","cleaners":"Мостова В","notes":""},{"time":"14:00+-","driver":"Роман","manager":"","address":"Соківники, Героїв Крут 1, під 6","type":"миття підлоги + ванна + змішувачі + унітази 2 шт","cleaners":"Чучман Н","notes":""}]},{"date":"03.04.2026","weekday":"П'ятниця","jobs":[{"time":"09:00:00","driver":"Ігор","manager":"","address":"Рудницького 54/1","type":"деталізоване прибирання (до 75 м.кв)","cleaners":"Мартинюк Н, Кушніренко О, Шлапак О","notes":"Шлапак О*"},{"time":"09:30:00","driver":"самостійно","manager":"","address":"Мельника 18","type":"прибирання івенту","cleaners":"Білоган К, Павлеса Л","notes":""},{"time":"09:30:00","driver":"самостійно","manager":"","address":"Г.Кравса 9","type":"підтримуюче будинку","cleaners":"Стельмах Ю","notes":""},{"time":"09:30:00","driver":"Ігор","manager":"","address":"Зарицьких 5","type":"кухонні шафки всередині + фасади + духовка + душ повністю + холодильник + решітки плити","cleaners":"Гуменна Х, ст. Хрупіна О (5-й.д)","notes":""},{"time":"10:00:00","driver":"Роман","manager":"","address":"Ярославенка 17а","type":"сезонне миття вікон (25 м.кВ)","cleaners":"Лопачак А","notes":""},{"time":"10:00:00","driver":"Ігор","manager":"","address":"Корородза 6 кв 5","type":"хімчистка 4-місний кутовий + 2-спальний матрц (двостороння) + 1-спальний (двстроння) 2 шт + чистка підологи у квартрі (плитка)","cleaners":"Логін В, Сухий Д","notes":""},{"time":"10:30:00","driver":"Роман","manager":"","address":"Кримська 107","type":"деталізоване 100 м.кв + прaлка + посудимийка + чайник + холодильник + мікрох + шафки ванна та кухня + балконні 10 м.кв + збір килимів","cleaners":"Сабадаш Г, Томашевська Л, Коцун О, Степована Н","notes":"*Сабадаш Г"},{"time":"19:00:00","driver":"ситуативно","manager":"","address":"Мельника 18 (Кав'ярня)","type":"сезонне митят вікон + замірятий","cleaners":"Логін В","notes":""}]},{"date":"04.04.2026","weekday":"Субота","jobs":[{"time":"07:00:00","driver":"самостійно","manager":"","address":"Мельника 18","type":"прибирання івенту","cleaners":"Білоган К, Микитюк Л, Мартинюк Н","notes":""},{"time":"09:00:00","driver":"Ігор","manager":"","address":"Зелена, 204б, 7 секція","type":"генеральне до 75 м.кв + скло душу + морозилка + холодильник + балкон","cleaners":"Стельмах Ю, Шлапак О","notes":""},{"time":"09:45:00","driver":"Ігор","manager":"","address":"Виговського 5а","type":"деталізоване (до 45 м.кв)","cleaners":"Томашевська Л, Степована Н","notes":""},{"time":"10:20:00","driver":"Ігор","manager":"","address":"Соківники Л.України 21","type":"сезонне миття вікон (+- 25 м.кв) + замірятий","cleaners":"Коцун О, Симак М (3-й.д)","notes":"Збір о 09:45 вул. Виговського 5а"},{"time":"23.00-07:00","driver":"самостійно","manager":"","address":"Мельника 18","type":"прибирання івенту","cleaners":"Білоган К, Микитюк Л","notes":""}]},{"date":"05.04.2026","weekday":"Неділя","jobs":[{"time":"07:00:00","driver":"самостійно","manager":"","address":"Мельника 18","type":"прибирання івенту","cleaners":"Стельмах Ю, Мартинюк Н, Логін В","notes":"3 клінерів - весь день"}]},{"date":"06.04.2026","weekday":"Понеділок","jobs":[{"time":"09:00:00","driver":"Самостійно","manager":"","address":"Мельника 18","type":"прибирання івенту (генеральне)","cleaners":"Кушніренко О, Сабадаш Г, Сухий Д","notes":""},{"time":"09:00:00","driver":"Зачкевич Х / Роман","manager":"","address":"Малечковичі","type":"генеральне прибирання будинку + вікна","cleaners":"Томашевська Л, Коцун О, Логін В, Гуменна Х, Янішевська Г, Копровська Я, ст.Золотаренко В (4-й)","notes":"Збір на Кульпарківській ( зупинка готель Геліон) о 08:40"},{"time":"10:00:00","driver":"Роман","manager":"","address":"Під Голоском 4б, 2 під","type":"генеральне до 45 м.кв","cleaners":"Лопачак А, ст. Щеглова Н (1-й.д)","notes":""},{"time":"10:45:00","driver":"Роман","manager":"","address":"Соківники, Грушевського 57к","type":"підтримуюче прибирання (190 м.кв)","cleaners":"Мостова В","notes":"Збір на зупинці Стрийська-Наукова о 10:40"},{"time":"11:30:00","driver":"Роксолана","manager":"","address":"Брюховичі Бічна Озерна 22","type":"базове прибирання будинку","cleaners":"Стельмах Ю","notes":"Збір на Замарстинівська 233а о 11:15."}]},{"date":"07.04.2026","weekday":"Вівторок","jobs":[{"time":"07:00:00","driver":"самостійно","manager":"","address":"Мельника 18","type":"прибирання івенту","cleaners":"Білоган К, Павлеса","notes":""},{"time":"08:50:00","driver":"Зачкевич Х / Роман","manager":"","address":"Малечковичі","type":"генеральне прибирання будинку + вікна","cleaners":"Лопачак А, Томашевська Л, Коцун О, Тетенюк Р, Копровська Я","notes":"Збір на Кульпарківській (зупинка готель Геліон) о 08:30"},{"time":"09:30:00","driver":"Ігор","manager":"","address":"Наукова 2в, 2 під","type":"деталізоване (до 60 м.кв) + духовка + витяжка + морозилка + холодильн + прaлка + дно унітазу + мікрохвильовка + чайник","cleaners":"Міґоцька І, Кушніренко О, Шлапак О","notes":""},{"time":"10:00:00","driver":"Ігор","manager":"","address":"Щирецька 23","type":"генеральне 100 м.кв","cleaners":"Гуменна Х, Янішевська Г, ст. Щеглова Н (2-й.д)","notes":""},{"time":"10:00:00","driver":"Роман","manager":"","address":"Рясне руське","type":"миття вікон","cleaners":"Мостова В, Логін В","notes":"Збір Городоцька 302 (зупинка Епіцентр) о 09:40"},{"time":"10:20:00","driver":"Ігор","manager":"","address":"Кульпарківська 93","type":"підтримуюче прибирання (45 м.кв) + дно унітазу + вхідні двері","cleaners":"Стельмах Ю","notes":""},{"time":"10:30:00","driver":"Роман","manager":"","address":"Дунапак","type":"генеральне прибирання","cleaners":"Мартинюк Н","notes":"Збір Городоцька 302 (зупинка Епіцентр) о 09:40"},{"time":"11:00:00","driver":"Роман","manager":"","address":"Мазепи 13а/239","type":"сезонне миття вікон","cleaners":"Сухий Д","notes":""},{"time":"12:15:00","driver":"Роман","manager":"","address":"Пимоненка 7е","type":"генеральне прибирання (до 45 м.кв)","cleaners":"Сабадаш Г","notes":""},{"time":"13:30-14:30","driver":"ситуативно","manager":"","address":"Зелена 151, корпус 11","type":"підтримуюче прибирання до 45 м.кв","cleaners":"Стельмах Ю","notes":""}]},{"date":"08.04.2026","weekday":"Середа","jobs":[{"time":"07:00:00","driver":"самостійно","manager":"","address":"Мельника 18","type":"прибирання івенту","cleaners":"Білоган К, Микитюк Л","notes":""},{"time":"09:00:00","driver":"Роман","manager":"","address":"Дж. Вашингтона 4а","type":"деталізоване прибирання кухні + духовка + мікрохвильов + витяжка","cleaners":"Лопачак А, Мартинюк Н","notes":""},{"time":"09:30:00","driver":"Зачкевич Х","manager":"","address":"Винники, Стрілецька 95","type":"хімчистка + прибирання тераса","cleaners":"Степована Н, Копровська Я","notes":"Збір Личаківська 154 (Нова пошта 90) о 09:10"},{"time":"09:45:00","driver":"Роман","manager":"","address":"Пимоненка 20 А","type":"генеральне до 60 м.кв + миття декорат каміння + дно унітазу + балкон + духовка + сушка для посуду + вікна (13,6 м.кв)","cleaners":"Стельмах Ю, Коцун О, Степована Н","notes":"Коцун О +- 14:00"},{"time":"09:45:00","driver":"таксі","manager":"","address":"Топольна 4г","type":"генеральне (до 75 м.кв) + вікна (10,3 м.кв)","cleaners":"Сабадаш, Коцун О, Хрупіна О","notes":""},{"time":"09:45:00","driver":"таксі","manager":"","address":"Брюховичі, вул. Бічна Львівська 1а","type":"хч 5-місн кут дивану + каркас ліжка + спинка ліжка + матрац 2 місний (одна сторона)","cleaners":"Логін В","notes":"Збір о 09:15 вул. Липинського 28"},{"time":"10:30:00","driver":"Роман","manager":"","address":"Куліківська 10а","type":"генеральне прибирання 100 м.кв + тераса + духовка","cleaners":"Шлапак О, Чучман Т","notes":""}]},{"date":"09.04.2026","weekday":"Четвер","jobs":[{"time":"06:30:00","driver":"самостійно","manager":"","address":"Мельника 18","type":"прибирання івенту","cleaners":"Білоган К, Микитюк Л","notes":""},{"time":"09:00:00","driver":"Капало Р / Роман","manager":"","address":"Восток Куліша 46","type":"миття вікон 1-6 повер + зняти залишки клею із стін фасаду","cleaners":"Коцун О, Логін В, Сухий Д, Тетенюк Р","notes":""},{"time":"09:00:00","driver":"Ігор","manager":"","address":"Яцкова 13, під 1","type":"генеральне прибирання (до 75 м.кв)","cleaners":"Стельмах Ю, Мартинюк Н","notes":""},{"time":"09:30:00","driver":"Ігор","manager":"","address":"Замарстинівська 76б, під 2.1","type":"генеральне прибирання (до 90 м.кв) + духовка + скло душу","cleaners":"Томашевська Л, Кушніренко О, ст. Щеглова Н (3-й.д)","notes":""},{"time":"09:30:00","driver":"Зачкевич Х","manager":"","address":"Мучна 56","type":"Підтримуюче, вікна доробка","cleaners":"Зачкевич Х","notes":""},{"time":"09:40:00","driver":"Роман","manager":"","address":"Кульпарківська 93","type":"підтримуюче (до 75 м.кв)","cleaners":"Чучман Т","notes":""},{"time":"13:00-14:00","driver":"ситуативно","manager":"","address":"Замарстинівська 76б","type":"підтримуюче прибирання до 75 м.кв","cleaners":"Чучман Т","notes":""}]},{"date":"10.04.2026","weekday":"П'ятниця","jobs":[{"time":"09:00:00","driver":"Зачкевич Х / Роман","manager":"","address":"Бойківська 31б","type":"прибирання + вікна","cleaners":"Коцун О, Сухий Д, Міґоцька І, ст. Симак М (5-й.д)","notes":""},{"time":"09:30:00","driver":"Роман","manager":"","address":"Карадіча 29б","type":"генеральне (до 75 м.кв)","cleaners":"Кушніренко О, Томашевська Л","notes":""},{"time":"10:00:00","driver":"Роман","manager":"","address":"с.Зимна Вода, вул. Грушевського 14","type":"деталізоване кухня та санвузла духовка + мікрохв + холодильник + точково стіна","cleaners":"Стельмах Ю, Хрупіна О","notes":"Збір о 09:30 вул.Карадіча 29б"},{"time":"10:30:00","driver":"Роман","manager":"","address":"Дунапак","type":"генральне прибирання","cleaners":"Мартинюк Н","notes":"Збір о 10:15 зупинка Епіцентр (вул Городоцька 302)"}]},{"date":"11.04.2026","weekday":"Субота","jobs":[{"time":"10:00:00","driver":"таксі","manager":"","address":"Рясне","type":"підтримуюче будинку","cleaners":"Копровська Я","notes":"Збір о 09:30 зупинка Метро (Городоцька 300)"}]},{"date":"14.04.2026","weekday":"Вівторок","jobs":[{"time":"09:00:00","driver":"Зачкевич Х / Роман","manager":"","address":"Рясне-Руське","type":"ремонт","cleaners":"Коцун О, Кушніренко О, Логін В, Чучман Т, Томашевська Л, Гуменна Х, Мартинюк Н, ст. Щеглова Н (4-й.д)","notes":""}]},{"date":"15.04.2026","weekday":"Середа","jobs":[{"time":"09:00:00","driver":"Роман","manager":"","address":"Бойківська 31Б","type":"стандарт","cleaners":"Сухий Д, Мартинюк Н, Хрупіна О","notes":""},{"time":"09:30:00","driver":"Таксі","manager":"","address":"Корсунська 19Б","type":"хч 2-місний диван + крісла (6 шт) + крісло велике","cleaners":"Логін В","notes":"Збір на складі, вул. Шведська 3, 9:00"},{"time":"09:30:00","driver":"Зачкевич Х","manager":"","address":"Рясне-Руське","type":"ремонт","cleaners":"Міґоцька І, Тетенюк Р, Копровська Я, Кушніренко О, Золотаренко В, Степована Н","notes":"Збір о 9:00 Шевченка 134а"},{"time":"09:40:00","driver":"Роман","manager":"","address":"Солонка, Шашкевича 53","type":"стандарт 120 м.кв + вікна сезонне + шафки + побутова техніка","cleaners":"Сабадаш Г, Лопачак А, Янішевська Г, Коцун О","notes":""},{"time":"10:20:00","driver":"Роман","manager":"","address":"Зелена 151, 7 під","type":"духовка + витяжка + знежирення фасадів верхня секція + гриль","cleaners":"Гуменна Х","notes":""},{"time":"14:00:00","driver":"Роман","manager":"","address":"Замарстинівська 170П, 2 під'їзд","type":"Сезоне миття вікон +- 11 м.кв","cleaners":"Логін В","notes":""}]},{"date":"16.04.2026","weekday":"Четвер","jobs":[{"time":"","driver":"самостійно","manager":"","address":"Мельника 18","type":"прибирання івенту","cleaners":"Мартинюк Н, Білоган К, Павлеса Л","notes":""},{"time":"09:00:00","driver":"Роман","manager":"","address":"Замарстинівська 76а, під 1.2","type":"ремонт 80 м.кв + вікна","cleaners":"Томашевська Л, Міґоцька І, Коцун О","notes":""},{"time":"09:40:00","driver":"Роман","manager":"","address":"Кульпарківська 93/4 під 3.2","type":"експрес (до 75 м.кв) + постіль","cleaners":"Сабадаш Г","notes":""},{"time":"10:00:00","driver":"Зачкевич Х","manager":"","address":"Рясне-Руське","type":"ремонт","cleaners":"Тетенюк Р, Кушніренко О, ст. Щеглова Н (5-й.д), Хрупіна О","notes":"Збір о 9:30 вул. Кирілівська 3а"},{"time":"10:00:00","driver":"Роман","manager":"","address":"Ярославенка 17а","type":"експрес до 100 м.кв","cleaners":"Копровська Я","notes":""},{"time":"10:00:00","driver":"Самостійно","manager":"","address":"Мучна 56","type":"стандарт","cleaners":"Лопачак А","notes":""},{"time":"10:20:00","driver":"Роман","manager":"","address":"Горина 39/22","type":"глибоке (до 75 м.кв) + шафки всередині + морозилка + холодильник + духовка + витяжка + мікрохвильова + хімчистка 2-спального матрцу + дно унітазу + розкладна частина дивану + вікна (замірятий)","cleaners":"Мостова В, Янішевська Г, Логін В, Сухий Д, Копровська Я, Чучман Т","notes":"Копровська Я. після Ярославенка"},{"time":"11:00:00","driver":"Капало Р","manager":"","address":"Дунапак","type":"стандарт","cleaners":"Мізерна С","notes":""},{"time":"14:00+-","driver":"Роман","manager":"","address":"Пимоненка 7е","type":"експрес (до 45 м.кв)","cleaners":"Сабадаш Г","notes":""}]},{"date":"17.04.2026","weekday":"П'ятниця","jobs":[{"time":"09:00:00","driver":"Ігор","manager":"Капало Р","address":"Замарстинівська 76а","type":"доробка ремонт","cleaners":"Шлапак О","notes":""},{"time":"09:00:00","driver":"Роман","manager":"Зачкевич Х","address":"Рясне-Руське","type":"ремонт","cleaners":"Логін В, Коцун О","notes":"Збір 08:40 Кирілівська 3а"},{"time":"09:15:00","driver":"Ігор","manager":"","address":"Чоновола 67Ж/31","type":"Глибоке санвузла + стандарт решта площі (до 45 м.кв)","cleaners":"Лопачак А, Кушніренко О","notes":""},{"time":"10:00:00","driver":"Ігор","manager":"Капало Р","address":"Брюховичі","type":"ремонт","cleaners":"Золотаренко В, Бубес Х","notes":"Збір 9:30 Арсен Чорновола"},{"time":"","driver":"самостійно","manager":"","address":"Мельника 18","type":"прибирання івенту","cleaners":"Білоган К, Микитюк Л, Хрупіна О","notes":""}]},{"date":"18.04.2026","weekday":"Субота","jobs":[{"time":"08:45:00","driver":"Ігор","manager":"","address":"Тернопільська 21д","type":"прибирання комірки (від пожежі)","cleaners":"Мостова В, Кушніренко О","notes":""},{"time":"09:15:00","driver":"Ігор","manager":"Зачкевич Х","address":"Бойківська 31б","type":"глибоке","cleaners":"Мартинюк Н, Бубес Х, Золотаренко В, Лопачак А","notes":""}]},{"date":"19.04.2026","weekday":"Неділя","jobs":[{"time":"","driver":"самостійно","manager":"","address":"Мельника 18","type":"прибирання івенту","cleaners":"Павлеса Л, Білоган К, Петровська О","notes":""}]},{"date":"20.04.2026","weekday":"Понеділок","jobs":[{"time":"09:00:00","driver":"Роман","manager":"Зачкевич Х","address":"Холодновідка","type":"ремонт","cleaners":"Золотаренко В, Лопачак А, Щеглова Н","notes":"Збір о 08:30 на Шведська 3"},{"time":"09:30:00","driver":"Роман","manager":"","address":"Кульпарківська 93, корпус 4, під.6.2","type":"деталізоване до 60 м.кв + холод + морозилка + духовка + посудомийка + прaлка + витяжка + дно унітазу + чистка швів","cleaners":"Мостова В, Кушніренко О, Гуменна Х","notes":""},{"time":"09:45:00","driver":"Роман","manager":"","address":"Кн. Ольги 98п","type":"генеральне прибирання (до 90 м.кв)","cleaners":"Шлапак О, Міґоцька І","notes":""},{"time":"10:00:00","driver":"Таксі","manager":"","address":"Брюховичі","type":"вікна","cleaners":"Логін В","notes":"Збір 9:30, склад Шведська 3"},{"time":"10:15:00","driver":"Роман","manager":"","address":"Пимоненка 7д","type":"сезонне миття вікон (9 м.кв)","cleaners":"Коцун О","notes":""},{"time":"10:30:00","driver":"Роман","manager":"","address":"Зелена 115д, 6 під'їзд","type":"генеральне прибирання 60 м.кв + сезонне миття вікон","cleaners":"Коцун О, Томашевська Л","notes":""},{"time":"10:30:00","driver":"самостійно","manager":"Зачкевич Х","address":"Бойківська 31б","type":"глибоке","cleaners":"Степована Н., Чучман Т","notes":""},{"time":"10:00:00","driver":"самостійно","manager":"","address":"Мельника 18","type":"генеральне прибирання івенту","cleaners":"Білоган К, Сабадаш Г, Хрупіна О","notes":""}]},{"date":"21.04.2026","weekday":"Вівторок","jobs":[{"time":"09:00:00","driver":"Самостійно","manager":"Капало Р","address":"Бойківська 31б","type":"глибоке","cleaners":"Сухий Д, Тетенюк Р, Мартинюк Н, Коцун О, Хрупіна О, Томашевська Л","notes":"Томашевська до 17:00"},{"time":"09:00:00","driver":"Роман","manager":"","address":"Кн. Ольги 98б","type":"вікна на кухні (+-5 м.кв) + хч дивану 3-місний + балкон (сухе вологе прибирання)","cleaners":"Логін В","notes":""},{"time":"09:30:00","driver":"Таксі","manager":"","address":"Дунапак","type":"стандарт","cleaners":"Мізерна С","notes":"Збір в офісі 9:00"},{"time":"09:30:00","driver":"Роман","manager":"Зачкевич Х","address":"Холодновідка","type":"ремонт","cleaners":"Щеглова Н, Лопачак А, Мостова В, Кушніренко О, Шлапак О","notes":"Збір 09:15 зупинка Метро Городоцька"},{"time":"10:00:00","driver":"Роман","manager":"Зачкевич Х","address":"Рясне-Руське","type":"ремонт","cleaners":"Янішевська Г, Бубес Х, Гуменна Х, Чучман Т, Міґоцька І","notes":"Збір 09:45 зупинка Метро Городоцька"},{"time":"11:00:00","driver":"Роман","manager":"","address":"Зелена 151, корп 11","type":"стандарт (до 45 м.кв)","cleaners":"Степована Н","notes":""},{"time":"14:00:00","driver":"Роман","manager":"","address":"Молдавська 23","type":"чистка кондиціонерів (2 шт) + холодильник","cleaners":"Логін В","notes":""}]},{"date":"22.04.2026","weekday":"Середа","jobs":[{"time":"07:00-22:00","driver":"самостійно","manager":"","address":"Мельника 18","type":"прибирання івенту","cleaners":"Білоган К, Мартинюк Н","notes":""},{"time":"09:00:00","driver":"Роман","manager":"Капало Р","address":"Соківники, Панська Гора 28","type":"сезонне миття вікон будинку (58,78 м.кв) + альтанка (25 м.кв) + альтанка односторонє (6 м.кв) + дзеркальна стіна (8,5 м.кв)","cleaners":"Логін В, Коцун О","notes":"Збір о 08:40 зупинка Готель Геліон (Кульпарківська 230)"},{"time":"09:30:00","driver":"Роман","manager":"Зачкевич Х","address":"Холодновідка","type":"ремонт","cleaners":"Лопачак А, Хрупіна О","notes":"Збір 09:15 Метро Городоцька (парковка)"},{"time":"10:00:00","driver":"Роман","manager":"Зачкевич Х","address":"Рясне-Руське","type":"ремонт","cleaners":"Копровська Я, Янішевська Г, Степована Н","notes":"Збір 09:45 Метро Городоцька (парковка)"},{"time":"10:30:00","driver":"Роман","manager":"","address":"Замарстинівська 76б, секція 2.2","type":"експрес (до 75 м.кв)","cleaners":"Сабадаш Г","notes":""},{"time":"11:00:00","driver":"Роман","manager":"","address":"Пасічна 154б","type":"стандарт (до 90 м.кв) + дно унітазу","cleaners":"Сабадаш Г, Бубес Х","notes":"Сабадаш Г - після Замарстинівської"},{"time":"11:30:00","driver":"Роман","manager":"","address":"Винники, Стрілецька 95","type":"хімчистка м'яких меблів","cleaners":"Лапін В","notes":"Збір 11:10 Нова Пошта 90 (Личаківська 154)"}]},{"date":"23.04.2026","weekday":"Четвер","jobs":[{"time":"","driver":"самостійно","manager":"","address":"Мельника 18","type":"прибирання івенту","cleaners":"Білоган К, Микитюк Л","notes":""},{"time":"09:00:00","driver":"Роман","manager":"Зачкевич Х","address":"Рясне-Руське","type":"ремонт","cleaners":"Мостова В, Тетенюк Р, Симак М, Логін В, Кушніренко О, Мартинюк Н","notes":"Збір 08:45 Метро Городоцька (парковка)"},{"time":"09:30:00","driver":"Роман","manager":"","address":"Брюховичі, Бічна Озерна 22","type":"стандарт","cleaners":"Стельмах Ю","notes":"Збір та час узгодити з водієм"},{"time":"10:00:00","driver":"Самостійно","manager":"","address":"Мучна 56","type":"підтримуюче будинку","cleaners":"Лопачак А","notes":""},{"time":"10:00:00","driver":"Таксі","manager":"","address":"Дунапак","type":"стандарт","cleaners":"Мізерна С","notes":"Збір в офісі 09:30"},{"time":"10:15:00","driver":"Роман","manager":"","address":"Кульпарківська 93/4","type":"стандарт (до 75 м.кв)","cleaners":"Степована Н, Щеглова Н","notes":""},{"time":"10:20:00","driver":"Роман","manager":"","address":"Кульпарківська 93/3","type":"глибоке прибирання (до 75 м.кв) + мікрохвильова + духовка + сезонне миття вікон (13,59 м.кв)","cleaners":"Томашевська Л, Коцун О, Копровська Я, Хрупіна О","notes":"Коцун О - після Соківник"},{"time":"10:45:00","driver":"Роман","manager":"","address":"Соківники, Героїв Крут 1, 6 під","type":"сезонне миття вікон (+- 12 м.кв) + сухе вологе прибирання підлоги 100 м.кв + унітази 2 шт + ванна + змішувачі","cleaners":"Коцун О, Сабадаш Г","notes":"Збір о 10:30 зупинка готель Геліон (кульпарківська 230)"},{"time":"14:00:00","driver":"Роман","manager":"","address":"Пимоненка 7е","type":"експрес (до 45 м.кв)","cleaners":"Сабадаш Г","notes":""}]},{"date":"24.04.2026","weekday":"П'ятниця","jobs":[{"time":"09:00:00","driver":"Роман","manager":"Зачкевич Х","address":"Холодновідка","type":"ремонт","cleaners":"Кушніренко О, Щеглова Н, Томашевська Л","notes":"Збір 08:45 Метро Городоцька (парковка)"},{"time":"09:00:00","driver":"Капало Р","manager":"Капало Р","address":"Бойківська 31б","type":"периля + тераса + хімчистка","cleaners":"Лапін В, Логін В","notes":""},{"time":"09:40:00","driver":"Роман","manager":"","address":"Шевченка 60, буд 5","type":"стандарт 60 м.кв","cleaners":"Стельмах Ю","notes":""},{"time":"10:00:00","driver":"Роман","manager":"","address":"Кишинівська 12","type":"хімчистка 4-місний + подушки","cleaners":"Лапін В","notes":""},{"time":"10:20:00","driver":"Роман","manager":"","address":"Кульпарківська 93/корп 1, під 2","type":"експрес прибирання (до 45 м.кв)","cleaners":"Гуменна Х","notes":""},{"time":"10:45:00","driver":"Роман","manager":"","address":"Чупринки 12","type":"стандрт прибирання (до 45 м.кв)","cleaners":"Мартинюк Н","notes":""},{"time":"11:15:00","driver":"Роман","manager":"","address":"Вітовського 6","type":"експрес прибирання (100 м.кв)","cleaners":"Копровська Я","notes":""},{"time":"11:30:00","driver":"Роман","manager":"","address":"Пекарська 57а","type":"стандарт прибирання (до 75 м.кв) + прасування","cleaners":"Шлапак О, Хрупіна О","notes":""},{"time":"15:00 +-","driver":"Роман","manager":"","address":"Замарстинівська 76б","type":"експрес (до 75 м.кв)","cleaners":"Гуменна Х","notes":""}]},{"date":"25.04.2026","weekday":"Субота","jobs":[{"time":"09:30:00","driver":"Ігор","manager":"","address":"Зелена 204а, 1 секція","type":"глибоке (до 75 м.кв) + духовка + витяжка","cleaners":"Лопачак А, Бубес Х, Копровська Я","notes":""},{"time":"10:00:00","driver":"Ігор","manager":"","address":"Врубеля 15, 2 під","type":"стандарт прибирання (60 м.кв) + дно унітазу + заміна постелі + посудомийка + шафка сміткника + балкони (2 шт)","cleaners":"Мартинюк Н","notes":""},{"time":"11:00:00","driver":"Ігор","manager":"","address":"Героїв УПА 73В, 1 під","type":"генеральне кухні + санвузла + духовка + мікрохвильова + плісняява","cleaners":"Мостова В","notes":""}]},{"date":"27.04.2026","weekday":"Понеділок","jobs":[{"time":"09:00:00","driver":"Роман","manager":"","address":"Клепарівська 15","type":"миття вікон після ремонту (15,88 м.кв) + вхідні двері","cleaners":"Логін В, Сухий Д","notes":""},{"time":"09:40:00","driver":"Роман","manager":"","address":"Пасіки Зубрицькі, Шевченка 26","type":"стандартне прибирання кухні та 2-х санвузлів","cleaners":"Щеглова Н, Сабадаш Г","notes":"Збір 9:20 вул. Хуторівка"},{"time":"10:00:00","driver":"Роман","manager":"","address":"Соківники, Грушевського 57к","type":"стандартне прибирання 190 м.кв + чистка швів у душовій + сезонне миття вікон (+- 31 м.кв)","cleaners":"Кушніренко О, Коцун О, Мостова В, Чучман Т","notes":"Збір 9:20 вул. Хуторівка"},{"time":"10:45:00","driver":"Роман","manager":"","address":"Ярославенка 17а","type":"прибирання стандартне 100 м.кв","cleaners":"Гуменна Х, Янішевська Г","notes":""},{"time":"11:15:00","driver":"Роман","manager":"","address":"Рівна 28/2","type":"стандарт до 60 м.кв","cleaners":"Лопачак А","notes":""},{"time":"","driver":"самостійно","manager":"","address":"Кравса 9","type":"базове прибирання будинку","cleaners":"Томашевська Л","notes":""},{"time":"10:30:00","driver":"Таксі","manager":"","address":"Липинського 28, корпус 3","type":"стандарт, 120 м.кв","cleaners":"Шлапак О, Міґоцька І, Степована Н","notes":""}]},{"date":"28.04.2026","weekday":"Вівторок","jobs":[{"time":"09:00:00","driver":"Роман","manager":"Зачкевич Х","address":"Брюховичі","type":"вікна","cleaners":"Сухий Д, Хрупіна О, Коцун О, Лопачак А","notes":"Збір о заправка WOG (Чорновола 107) - 08:45"},{"time":"09:00:00","driver":"Капало Р","manager":"Капало Р","address":"Соківники, Львівська 91","type":"миття тераси","cleaners":"Мостова В, Мартинюк Н","notes":"Збір для Вікторії о 08:40 для Наталії о 09:00 зупинка готель Геліон (Кульпарківська 230)"},{"time":"09:30:00","driver":"Роман","manager":"","address":"Мазепи 2а","type":"стандарт 45 м.кв","cleaners":"Сабадаш Г","notes":""},{"time":"09:50:00","driver":"Роман","manager":"","address":"Тернопільська 8в","type":"глибоке прибирання кухні та санвузла + генеральне туалету + дно унітазу + мікрохвильова + холодильник","cleaners":"Копровська Я, Степована Н","notes":""},{"time":"10:00:00","driver":"Роман","manager":"","address":"Тернопільська 46","type":"прибирання після ремонту (до 45 м.кв)","cleaners":"Томашевська Л, Кушніренко О, Міґоцька І","notes":""},{"time":"10:20:00","driver":"Роман","manager":"","address":"Пимоненка 1, 12 під","type":"хімчистка 3-місного дивану + поудшки + вікна (+- 9 м.кв)","cleaners":"Логін В","notes":""},{"time":"10:40:00","driver":"Роман","manager":"","address":"Червоної калини 62а","type":"деталізоване прибирання 2-х санвузлів та кухні + всередішно шафки + мікрохвильова + духовка + холодильник + вікна (16 м.кв)","cleaners":"Шлапак О, Тетенюк Р, Хрупіна О, Янішевська Г","notes":""},{"time":"11:00:00","driver":"Роман","manager":"","address":"Дунапак","type":"стандартне","cleaners":"Мізерна С","notes":"Збір узгодити з водієм"}]},{"date":"29.04.2026","weekday":"Середа","jobs":[{"time":"09:00:00","driver":"Роман","manager":"Зачкевич Х","address":"Брюховичі","type":"вікна, ремонт","cleaners":"Коцун О, Логін В, Хрупіна О, Янішевська Г, Лопачак А, Бубес Х","notes":"Збір 08:45 вул. Замарстинівська"},{"time":"09:30:00","driver":"Роман","manager":"","address":"Чорновола 67ж","type":"глибоке санвузла + стандарт решта площі (до 60 м.кв)","cleaners":"ст. Яремчишин І (1-й), Томашевська Л, Кушніренко О","notes":""},{"time":"10:00:00","driver":"Роман","manager":"","address":"Замарстинівська 76Г, підїзд 4.2, квартира 52","type":"стандарт 45","cleaners":"Мартинюк Н","notes":""},{"time":"10:00:00","driver":"самостійно","manager":"","address":"Єфремова 32а","type":"хічистка (2-місний) + 2 крісла + коврлін","cleaners":"Лапін В","notes":""},{"time":"10:30:00","driver":"Роман","manager":"","address":"Кульпарківська 93/4","type":"експрес (до 75 м.кв)","cleaners":"Копровська Я","notes":""},{"time":"14:00+-","driver":"Роман","manager":"","address":"Шведська 3","type":"інші роботи","cleaners":"Копровська Я","notes":""}]},{"date":"30.04.2026","weekday":"Четвер","jobs":[{"time":"","driver":"Зачкевич Х","manager":"","address":"Мучна 56","type":"підтримуюче будинку + вікна","cleaners":"Лопачак А, Логін В, Мостова В","notes":""},{"time":"","driver":"","manager":"","address":"Брюховичі","type":"вікна, ремонт","cleaners":"Коцун О, Тетенюк Р, Лапін В","notes":""},{"time":"","driver":"","manager":"","address":"Пимоненка 7е","type":"експрес (до 45 м.кв)","cleaners":"Сабадаш Г","notes":"попередньо?"},{"time":"","driver":"","manager":"","address":"Зелена 151","type":"експрес (до 45 м.кв)","cleaners":"Сабадаш Г","notes":"Бонд"},{"time":"","driver":"","manager":"","address":"Олеся 16","type":"стандарт 100 м.кв","cleaners":"Гуменна Х, Мартинюк Н","notes":"Антон Моря вб"}]}];
+
+const TODAY = '28.04.2026';
+
+function fmt(t) {
+  if (!t) return '—';
+  return t.replace(':00:00','').replace(':00','').trim() || '—';
+}
+
+function renderJobCard(job) {
+  const t = fmt(job.time);
+  const parts = [];
+  if (job.driver) parts.push(`<span class="meta-chip chip-driver">🚗 ${job.driver}</span>`);
+  if (job.manager) parts.push(`<span class="meta-chip chip-manager">👤 ${job.manager}</span>`);
+  if (job.cleaners) parts.push(`<span class="meta-chip chip-cleaners">🧹 ${job.cleaners}</span>`);
+  if (job.notes) parts.push(`<span class="meta-chip chip-note">📌 ${job.notes}</span>`);
+  return `<div class="job-card">
+    <div class="job-top">
+      <span class="job-time ${t==='—'?'no-time':''}">${t}</span>
+      <div class="job-address">${job.address}</div>
+    </div>
+    <div class="job-type">${job.type}</div>
+    <div class="job-meta">${parts.join('')}</div>
+  </div>`;
+}
+
+const nav = document.getElementById('daysNav');
+SCHEDULE.forEach((day, i) => {
+  const btn = document.createElement('button');
+  const isToday = day.date === TODAY;
+  btn.className = 'day-pill' + (isToday ? ' today' : '');
+  btn.textContent = day.date.slice(0,5) + ' ' + day.weekday.slice(0,2);
+  btn.onclick = () => showDay(i);
+  nav.appendChild(btn);
+});
+
+const normalView = document.getElementById('normalView');
+SCHEDULE.forEach((day, i) => {
+  const block = document.createElement('div');
+  block.className = 'day-block';
+  block.id = 'day-' + i;
+  const isToday = day.date === TODAY;
+  const validJobs = day.jobs.filter(j => j.address && j.address !== '\\');
+  block.innerHTML = `<div class="day-header">
+    <span class="day-date">${day.date.slice(0,5)}</span>
+    <span class="day-weekday">${day.weekday}${isToday ? '<span class="today-badge">Сьогодні</span>' : ''}</span>
+    <span class="jobs-count">${validJobs.length} замовлень</span>
+  </div>${validJobs.map(renderJobCard).join('')}`;
+  normalView.appendChild(block);
+});
+
+const todayIdx = SCHEDULE.findIndex(d => d.date === TODAY);
+showDay(todayIdx >= 0 ? todayIdx : 0);
+
+function showDay(i) {
+  document.querySelectorAll('.day-block').forEach(b => b.classList.remove('visible'));
+  document.querySelectorAll('.day-pill').forEach(b => b.classList.remove('active'));
+  document.getElementById('day-' + i).classList.add('visible');
+  document.querySelectorAll('.day-pill')[i].classList.add('active');
+  document.querySelectorAll('.day-pill')[i].scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+  document.getElementById('searchResults').classList.remove('visible');
+  document.getElementById('normalView').style.display = '';
+  document.getElementById('searchInput').value = '';
+}
+
+function doSearch(q) {
+  if (!q.trim()) {
+    document.getElementById('searchResults').classList.remove('visible');
+    document.getElementById('normalView').style.display = '';
+    return;
+  }
+  const term = q.toLowerCase();
+  document.getElementById('normalView').style.display = 'none';
+  document.getElementById('searchResults').classList.add('visible');
+  let html = '', total = 0;
+  SCHEDULE.forEach(day => {
+    const matches = day.jobs.filter(j =>
+      j.address.toLowerCase().includes(term) ||
+      (j.cleaners||'').toLowerCase().includes(term) ||
+      (j.type||'').toLowerCase().includes(term) ||
+      (j.driver||'').toLowerCase().includes(term) ||
+      (j.notes||'').toLowerCase().includes(term)
+    );
+    if (matches.length) {
+      total += matches.length;
+      html += `<div style="margin-bottom:24px">
+        <div style="font-size:11px;color:var(--muted);font-weight:700;margin-bottom:10px;padding-bottom:6px;border-bottom:1.5px solid var(--border);text-transform:uppercase;letter-spacing:0.8px">${day.date} — ${day.weekday}</div>
+        ${matches.map(renderJobCard).join('')}
+      </div>`;
+    }
+  });
+  document.getElementById('searchHeader').innerHTML = `Знайдено: <span>${total} результатів</span> за запитом «${q}»`;
+  document.getElementById('searchContent').innerHTML = html || '<div class="empty-state"><div class="icon">🔍</div><p>Нічого не знайдено</p></div>';
+}
+</script>
+</body>
+</html>
